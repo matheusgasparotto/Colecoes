@@ -1,14 +1,18 @@
-import { Paper } from "@material-ui/core";
 import Character from "../../Components/Character";
+import { StyledContainer } from "./style";
 
-const Favorites = ({ favorites }) => {
-  console.log("oi");
+const Favorites = ({ favorites, setFavorites }) => {
   return (
-    <div>
+    <StyledContainer>
       {favorites.map((favorite, index) => (
-        <Character key={index} data={favorite} />
+        <Character
+          favorites={favorites}
+          setFavorites={setFavorites}
+          key={index}
+          data={favorite}
+        />
       ))}
-    </div>
+    </StyledContainer>
   );
 };
 

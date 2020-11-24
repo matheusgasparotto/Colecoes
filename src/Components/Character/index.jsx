@@ -10,13 +10,13 @@ import { useLocation } from "react-router-dom";
 const Character = ({ data, setFavorites, favorites }) => {
   const { name, image } = data;
 
-  const handleFavorites = (name, image) => {
-    favorites
-      ? setFavorites([...favorites, { name: name, image: image }])
-      : setFavorites([{ name: name, image: image }]);
+  const handleFavorites = () => {
+    favorites.find((favorite) => favorite.name === name) === undefined &&
+      setFavorites([...favorites, { name: name, image: image }]);
   };
+  console.log(favorites);
 
-  const handleFavoritesRemove = (name) => {
+  const handleRemoveFavorites = () => {
     setFavorites(favorites.filter((favorite) => favorite.name !== name));
   };
 
@@ -31,8 +31,8 @@ const Character = ({ data, setFavorites, favorites }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        {location === "favorites" ? (
-          <Button size="small" color="primary" onClick={handleFavoritesRemove}>
+        {location.pathname === "/Fav" ? (
+          <Button size="small" color="primary" onClick={handleRemoveFavorites}>
             Remover dos Favoritos
           </Button>
         ) : (

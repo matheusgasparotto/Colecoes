@@ -3,7 +3,7 @@ import Characters from "../Pages/Characters";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
 import { StyledToolbar } from "./style";
-// import { MdStarBorder } from "react-icons/md";
+import { MdStarBorder } from "react-icons/md";
 import { RickIcon, PokeIcon } from "../Components/Icons";
 import { useState } from "react";
 import Favorites from "../Pages/Favorites";
@@ -31,12 +31,13 @@ const Routers = () => {
             Rick And Morty
           </IconButton>
           <IconButton
+            name="Pokemon"
             edge="start"
             color="inherit"
             aria-label="menu"
-            onClick={() => handlePage("favorites")}
+            onClick={() => handlePage("Fav")}
           >
-            {/* <MdStarBorder /> */}
+            <MdStarBorder />
             Favoritos
           </IconButton>
           <IconButton
@@ -53,11 +54,11 @@ const Routers = () => {
       </AppBar>
       <Switch>
         <Route exact path="/"></Route>
-        <Route path="/:id">
-          <Characters setFavorites={setFavorites} favorites={favorites} />
+        <Route exact path="/Fav">
+          <Favorites setFavorites={setFavorites} favorites={favorites} />
         </Route>
-        <Route path="/favorites">
-          <Favorites favorites={favorites} />
+        <Route exact path="/:id">
+          <Characters setFavorites={setFavorites} favorites={favorites} />
         </Route>
       </Switch>
     </>
