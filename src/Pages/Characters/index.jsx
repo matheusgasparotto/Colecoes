@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Container } from "./style";
 import { Pagination } from "@material-ui/lab";
 
-const Characters = () => {
+const Characters = ({ setFavorites, favorites }) => {
   const { id } = useParams();
   const [RickAndPokemonCharacters, setCharactersRickAndMorty] = useState([]);
 
@@ -14,28 +14,30 @@ const Characters = () => {
   const [numberPages, setNumberPages] = useState();
 
   const defineNumberpages = (data) => {
-    id === "RickAndMorty"
-      ? setNumberPages(data.info?.pages)
-      : setNumberPages(Math.ceil(data.count / 20));
+    id === "RickAndMorty" && setNumberPages(data.info?.pages);
+    id === "Pokemon" && setNumberPages(Math.ceil(data.count / 20));
   };
 
-  const handleChange = (_event, value) => {
+  const handleChange = (_e, value) => {
     setPage(value);
   };
 
   const LoadCharacters = async () => {
     const URL =
-      id === "RickAndMorty"
-        ? `https://rickandmortyapi.com/api/character/?page=${page}`
-        : `https://pokeapi.co/api/v2/pokemon?offset=${page}&limit=20`;
-    setCharactersRickAndMorty(await RequestRickAndMorty(URL));
+      (id === "RickAndMorty" &&
+        `https://rickandmortyapi.com/api/character/?page=${page}`) ||
+      (id === "Pokemon" &&
+        `https://pokeapi.co/api/v2/pokemon?offset=${page}&limit=20`);
+    if (id === "RickAndMorty" || id === "Pokemon") {
+      setCharactersRickAndMorty(await RequestRickAndMorty(URL));
+    }
   };
 
   const location = useLocation();
 
   useEffect(() => {
     LoadCharacters();
-  }, [location]);
+  }, [location, page]);
 
   useEffect(() => {
     defineNumberpages(RickAndPokemonCharacters);
@@ -54,12 +56,19 @@ const Characters = () => {
       <Container>
         {id === "RickAndMorty" &&
           results?.map((character, index) => (
-            <Character key={index} data={character} />
+            <Character
+              setFavorites={setFavorites}
+              favorites={favorites}
+              key={index}
+              data={character}
+            />
           ))}
 
         {id === "Pokemon" &&
           results?.map((character, index) => (
             <Character
+              setFavorites={setFavorites}
+              favorites={favorites}
               key={index}
               data={{
                 ...character,
@@ -69,8 +78,8 @@ const Characters = () => {
               }}
             />
           ))}
+        <Pagination count={numberPages} page={page} onChange={handleChange} />
       </Container>
-      <Pagination count={numberPages} page={page} onChange={handleChange} />
     </>
   );
 };

@@ -1,10 +1,12 @@
-import { Route, Switch, useHistory, useLocation } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import Characters from "../Pages/Characters";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
 import { StyledToolbar } from "./style";
-import { MdStarBorder } from "react-icons/md";
+// import { MdStarBorder } from "react-icons/md";
 import { RickIcon, PokeIcon } from "../Components/Icons";
+import { useState } from "react";
+import Favorites from "../Pages/Favorites";
 
 const Routers = () => {
   const history = useHistory();
@@ -12,6 +14,9 @@ const Routers = () => {
   const handlePage = (route) => {
     history.push(`/${route}`);
   };
+
+  const [favorites, setFavorites] = useState([]);
+
   return (
     <>
       <AppBar position="static">
@@ -31,7 +36,7 @@ const Routers = () => {
             aria-label="menu"
             onClick={() => handlePage("favorites")}
           >
-            <MdStarBorder />
+            {/* <MdStarBorder /> */}
             Favoritos
           </IconButton>
           <IconButton
@@ -48,10 +53,12 @@ const Routers = () => {
       </AppBar>
       <Switch>
         <Route exact path="/"></Route>
-        <Route exact path="/:id">
-          <Characters />
+        <Route path="/:id">
+          <Characters setFavorites={setFavorites} favorites={favorites} />
         </Route>
-        <Route exact path="/favorites"></Route>
+        <Route path="/favorites">
+          <Favorites favorites={favorites} />
+        </Route>
       </Switch>
     </>
   );
