@@ -1,4 +1,4 @@
-import { Route, Switch, Link, useHistory, useLocation } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import Characters from "../Pages/Characters";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
