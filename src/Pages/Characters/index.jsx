@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { RequestRickAndMorty } from "../../Request";
 import Character from "../../Components/Character";
 import { useEffect, useState } from "react";
@@ -31,9 +31,11 @@ const Characters = () => {
     setCharactersRickAndMorty(await RequestRickAndMorty(URL));
   };
 
+  const location = useLocation();
+
   useEffect(() => {
     LoadCharacters();
-  }, [page]);
+  }, [location]);
 
   useEffect(() => {
     defineNumberpages(RickAndPokemonCharacters);

@@ -7,19 +7,40 @@ import { MdStarBorder } from "react-icons/md";
 import { RickIcon, PokeIcon } from "../Components/Icons";
 
 const Routers = () => {
+  const history = useHistory();
+
+  const handlePage = (route) => {
+    history.push(`/${route}`);
+  };
   return (
     <>
       <AppBar position="static">
         <StyledToolbar variant="dense">
-          <IconButton edge="start" color="inherit" aria-label="menu">
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={() => handlePage("RickAndMorty")}
+          >
             <RickIcon />
             Rick And Morty
           </IconButton>
-          <IconButton edge="start" color="inherit" aria-label="menu">
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={() => handlePage("favorites")}
+          >
             <MdStarBorder />
             Favoritos
           </IconButton>
-          <IconButton edge="start" color="inherit" aria-label="menu">
+          <IconButton
+            name="Pokemon"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={() => handlePage("Pokemon")}
+          >
             <PokeIcon />
             Pokemons
           </IconButton>
