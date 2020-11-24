@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useParams } from "react-router-dom";
 import { RequestRickAndMorty } from "../../Request";
 import Character from "../../Components/Character";
@@ -12,6 +13,12 @@ const Characters = () => {
   const [page, setPage] = useState(1);
   const [numberPages, setNumberPages] = useState();
 
+  const defineNumberpages = (data) => {
+    id === "RickAndMorty"
+      ? setNumberPages(data.info?.pages)
+      : setNumberPages(Math.ceil(data.count / 20));
+  };
+
   const handleChange = (_event, value) => {
     setPage(value);
   };
@@ -22,15 +29,23 @@ const Characters = () => {
         ? `https://rickandmortyapi.com/api/character/?page=${page}`
         : `https://pokeapi.co/api/v2/pokemon?offset=${page}&limit=20`;
     setCharactersRickAndMorty(await RequestRickAndMorty(URL));
-    console.log(RickAndPokemonCharacters);
   };
 
   useEffect(() => {
     LoadCharacters();
-  }, []);
+  }, [page]);
+
+  useEffect(() => {
+    defineNumberpages(RickAndPokemonCharacters);
+  }, [RickAndPokemonCharacters]);
 
   const { results } = RickAndPokemonCharacters;
-  //   const { pages } = RickAndPokemonCharacters?.info;
+
+  const urlPoke = (poke) => {
+    const brokenUrl = poke.url.split("/");
+    const idPoke = brokenUrl[brokenUrl.length - 2];
+    return idPoke;
+  };
 
   return (
     <>
@@ -39,14 +54,21 @@ const Characters = () => {
           results?.map((character, index) => (
             <Character key={index} data={character} />
           ))}
-      </Container>
-      <Container>
+
         {id === "Pokemon" &&
           results?.map((character, index) => (
-            <Character key={index} data={character} />
+            <Character
+              key={index}
+              data={{
+                ...character,
+                image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${urlPoke(
+                  character
+                )}.png`,
+              }}
+            />
           ))}
       </Container>
-      <Pagination count={10} page={page} onChange={handleChange} />
+      <Pagination count={numberPages} page={page} onChange={handleChange} />
     </>
   );
 };

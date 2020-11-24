@@ -10,5 +10,5 @@ import styled, { css } from "styled-components";
 
 export const StyledCard = styled(Card)`
   max-width: 20vw;
-  margin: 20px;
+  margin: 2%;
 `;
