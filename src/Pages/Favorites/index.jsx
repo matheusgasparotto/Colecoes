@@ -1,6 +1,6 @@
 import Character from "../../Components/Character";
 import { StyledContainer } from "./style";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import FavMenu from "../../Components/FavMenu";
 
 const Favorites = ({ favorites, setFavorites }) => {

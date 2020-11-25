@@ -7,18 +7,43 @@ import {
 import { StyledCard, StyledCardMedia } from "./style";
 import { useLocation } from "react-router-dom";
 
-const Character = ({ data, setFavorites, favorites }) => {
+const Character = ({ data }) => {
   const { name, image } = data;
   const id = data.id !== undefined ? data.id : "";
 
-  const handleFavorites = () => {
-    favorites.find((favorite) => favorite.name === name) === undefined &&
-      setFavorites([...favorites, { id: id, name: name, image: image }]);
+  const getFavorites = () => {
+    console.log(window.localStorage.getItem("favorites") !== null);
+    const favorites =
+      window.localStorage.getItem("favorites") !== null
+        ? JSON.parse(window.localStorage.getItem("favorites"))
+        : [];
+    return favorites;
   };
-  console.log(favorites);
+
+  const handleFavorites = () => {
+    console.log(window.localStorage);
+    if (
+      getFavorites().find((favorite) => favorite.name === name) === undefined
+    ) {
+      const favorites = [
+        ...getFavorites(),
+        { id: id, name: name, image: image },
+      ];
+      window.localStorage.removeItem("favorites");
+      console.log(getFavorites());
+      window.localStorage.setItem("favorites", JSON.stringify(favorites));
+    }
+  };
+  console.log(JSON.stringify(...getFavorites()));
 
   const handleRemoveFavorites = () => {
-    setFavorites(favorites.filter((favorite) => favorite.name !== name));
+    window.localStorage.removeItem("favorites");
+    window.localStorage.setItem(
+      "favorites",
+      JSON.stringify(
+        getFavorites().filter((favorite) => favorite.name !== name)
+      )
+    );
   };
 
   const location = useLocation();
