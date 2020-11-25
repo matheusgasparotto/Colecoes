@@ -9,10 +9,11 @@ import { useLocation } from "react-router-dom";
 
 const Character = ({ data, setFavorites, favorites }) => {
   const { name, image } = data;
+  const id = data.id !== undefined ? data.id : "";
 
   const handleFavorites = () => {
     favorites.find((favorite) => favorite.name === name) === undefined &&
-      setFavorites([...favorites, { name: name, image: image }]);
+      setFavorites([...favorites, { id: id, name: name, image: image }]);
   };
   console.log(favorites);
 

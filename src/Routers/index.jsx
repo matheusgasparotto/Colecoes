@@ -35,7 +35,7 @@ const Routers = () => {
             edge="start"
             color="inherit"
             aria-label="menu"
-            onClick={() => handlePage("Fav")}
+            onClick={() => handlePage("Fav/Pokemon")}
           >
             <MdStarBorder />
             Favoritos
@@ -54,7 +54,7 @@ const Routers = () => {
       </AppBar>
       <Switch>
         <Route exact path="/"></Route>
-        <Route exact path="/Fav">
+        <Route exact path="/Fav/:type">
           <Favorites setFavorites={setFavorites} favorites={favorites} />
         </Route>
         <Route exact path="/:id">
