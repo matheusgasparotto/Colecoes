@@ -35,7 +35,7 @@ const Routers = () => {
             edge="start"
             color="inherit"
             aria-label="menu"
-            onClick={() => handlePage("Fav/Pokemon")}
+            onClick={() => handlePage("Fav/RickAndMorty")}
           >
             <MdStarBorder />
             Favoritos
