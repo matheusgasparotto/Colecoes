@@ -17,27 +17,29 @@ const Favorites = () => {
       <div>
         {type === "RickAndMorty" ? (
           <StyledContainer>
-            {favorites
-              .filter((favorite) => favorite.id !== "")
-              .map((favorite, index) => (
-                <Character
-                  setFavorites={setFavorites}
-                  key={index}
-                  data={favorite}
-                />
-              ))}
+            {favorites !== null &&
+              favorites
+                .filter((favorite) => favorite.id !== "")
+                .map((favorite, index) => (
+                  <Character
+                    setFavorites={setFavorites}
+                    key={index}
+                    data={favorite}
+                  />
+                ))}
           </StyledContainer>
         ) : (
           <StyledContainer>
-            {favorites
-              .filter((favorite) => favorite.id === "")
-              .map((favorite, index) => (
-                <Character
-                  setFavorites={setFavorites}
-                  key={index}
-                  data={favorite}
-                />
-              ))}
+            {favorites !== null &&
+              favorites
+                .filter((favorite) => favorite.id === "")
+                .map((favorite, index) => (
+                  <Character
+                    setFavorites={setFavorites}
+                    key={index}
+                    data={favorite}
+                  />
+                ))}
           </StyledContainer>
         )}
       </div>
