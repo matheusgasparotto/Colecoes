@@ -2,11 +2,28 @@ import Character from "../../Components/Character";
 import { StyledContainer } from "./style";
 import { useParams } from "react-router-dom";
 import FavMenu from "../../Components/FavMenu";
+import { useEffect, useState } from "react";
 
-const Favorites = ({ favorites, setFavorites }) => {
+const Favorites = () => {
   const { type } = useParams();
-  console.log(favorites);
 
+  const [favorites, setFavorites] = useState(
+    JSON.parse(window.localStorage.getItem("favorites"))
+  );
+
+  // const getFavorites = () => {
+  //   const favorites =
+  //     window.localStorage.getItem("favorites") !== null
+  //       ? JSON.parse(window.localStorage.getItem("favorites"))
+  //       : [];
+  //   return favorites;
+  // };
+
+  // useEffect(() => {
+  //   console.log("executei");
+  //   setFavorites(JSON.parse(window.localStorage.getItem("favorites")));
+  // }, [window.localStorage]);
+  console.log(favorites);
   return (
     <>
       <FavMenu />
@@ -17,7 +34,6 @@ const Favorites = ({ favorites, setFavorites }) => {
               .filter((favorite) => favorite.id !== "")
               .map((favorite, index) => (
                 <Character
-                  favorites={favorites}
                   setFavorites={setFavorites}
                   key={index}
                   data={favorite}
@@ -30,7 +46,6 @@ const Favorites = ({ favorites, setFavorites }) => {
               .filter((favorite) => favorite.id === "")
               .map((favorite, index) => (
                 <Character
-                  favorites={favorite}
                   setFavorites={setFavorites}
                   key={index}
                   data={favorite}
