@@ -5,4 +5,8 @@ export const Container = styled.div`
   flex-wrap: wrap;
   width: 100vw;
   max-width: 100%;
+
+  @media (max-width: 800px) {
+    justify-content: center;
+  }
 `;

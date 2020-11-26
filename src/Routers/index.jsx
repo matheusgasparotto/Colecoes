@@ -1,12 +1,8 @@
 import { Route, Switch, useHistory } from "react-router-dom";
 import Characters from "../Pages/Characters";
-import AppBar from "@material-ui/core/AppBar";
-import IconButton from "@material-ui/core/IconButton";
-import { StyledToolbar } from "./style";
-import { MdStarBorder } from "react-icons/md";
-import { RickIcon, PokeIcon } from "../Components/Icons";
-import { useState } from "react";
+import Menu from "../Components/Menu";
 import Favorites from "../Pages/Favorites";
+import { Folders } from "../Components/Folders/";
 
 const Routers = () => {
   const history = useHistory();
@@ -14,51 +10,18 @@ const Routers = () => {
   const handlePage = (route) => {
     history.push(`/${route}`);
   };
-
-  const [favorites, setFavorites] = useState([]);
-
   return (
     <>
-      <AppBar position="static">
-        <StyledToolbar variant="dense">
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={() => handlePage("RickAndMorty")}
-          >
-            <RickIcon />
-            Rick And Morty
-          </IconButton>
-          <IconButton
-            name="Pokemon"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={() => handlePage("Fav/RickAndMorty")}
-          >
-            <MdStarBorder />
-            Favoritos
-          </IconButton>
-          <IconButton
-            name="Pokemon"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={() => handlePage("Pokemon")}
-          >
-            <PokeIcon />
-            Pokemons
-          </IconButton>
-        </StyledToolbar>
-      </AppBar>
+      <Menu />
       <Switch>
-        <Route exact path="/"></Route>
+        <Route exact path="/">
+          <Folders Click={handlePage} />
+        </Route>
         <Route exact path="/Fav/:type">
-          <Favorites setFavorites={setFavorites} favorites={favorites} />
+          <Favorites />
         </Route>
         <Route exact path="/:id">
-          <Characters setFavorites={setFavorites} favorites={favorites} />
+          <Characters />
         </Route>
       </Switch>
     </>
