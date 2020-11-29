@@ -72,7 +72,7 @@ const Characters = ({ setFavorites, favorites }) => {
               key={index}
               data={{
                 ...character,
-                image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${urlPoke(
+                image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${urlPoke(
                   character
                 )}.png`,
               }}

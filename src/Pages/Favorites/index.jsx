@@ -2,15 +2,13 @@ import Character from "../../Components/Character";
 import { StyledContainer } from "./style";
 import { useParams } from "react-router-dom";
 import FavMenu from "../../Components/FavMenu";
-import { useState } from "react";
 import Graph from "../../Components/Graph";
+import { useSelector } from "react-redux";
 
 const Favorites = () => {
   const { type } = useParams();
 
-  const [favorites, setFavorites] = useState(
-    JSON.parse(window.localStorage.getItem("favorites"))
-  );
+  const favorites = useSelector((state) => state.characters);
 
   const RickAndMorty_List = favorites.filter((favorite) => favorite.id !== "");
   const Pokemon_List = favorites.filter((favorite) => favorite.id === "");
@@ -37,11 +35,7 @@ const Favorites = () => {
           <StyledContainer>
             {favorites !== null &&
               RickAndMorty_List.map((favorite, index) => (
-                <Character
-                  setFavorites={setFavorites}
-                  key={index}
-                  data={favorite}
-                />
+                <Character key={index} data={favorite} />
               ))}
           </StyledContainer>
         )}
@@ -50,11 +44,7 @@ const Favorites = () => {
           <StyledContainer>
             {favorites !== null &&
               Pokemon_List.map((favorite, index) => (
-                <Character
-                  setFavorites={setFavorites}
-                  key={index}
-                  data={favorite}
-                />
+                <Character key={index} data={favorite} />
               ))}
           </StyledContainer>
         )}

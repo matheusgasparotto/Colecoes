@@ -2,13 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import charactersReducer from "./Reducers/reducers";
+
+const characterStore = createStore(charactersReducer);
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={characterStore}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById("root")
 );
 

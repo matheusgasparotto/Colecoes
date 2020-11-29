@@ -6,41 +6,23 @@ import {
 } from "@material-ui/core";
 import { StyledCard, StyledCardMedia } from "./style";
 import { useLocation } from "react-router-dom";
+import { addCharacter, removeCharacter } from "../../actions";
+import { useDispatch } from "react-redux";
 
-const Character = ({ data, setFavorites }) => {
+const Character = ({ data }) => {
   const { name, image } = data;
   const id = data.id !== undefined ? data.id : "";
 
-  const getFavorites = () => {
-    const favorites =
-      window.localStorage.getItem("favorites") !== null
-        ? JSON.parse(window.localStorage.getItem("favorites"))
-        : [];
-    return favorites;
-  };
+  const dispatch = useDispatch();
 
   const handleFavorites = () => {
-    console.log(window.localStorage);
-    if (
-      getFavorites().find((favorite) => favorite.name === name) === undefined
-    ) {
-      const favorites = [
-        ...getFavorites(),
-        { id: id, name: name, image: image },
-      ];
-      window.localStorage.removeItem("favorites");
-      window.localStorage.setItem("favorites", JSON.stringify(favorites));
-    }
+    const favorite = { id: id, name: name, image: image };
+    dispatch(addCharacter(favorite));
   };
 
   const handleRemoveFavorites = () => {
-    const favorites = getFavorites();
-    window.localStorage.removeItem("favorites");
-    window.localStorage.setItem(
-      "favorites",
-      JSON.stringify(favorites?.filter((favorite) => favorite.name !== name))
-    );
-    setFavorites(JSON.parse(window.localStorage.getItem("favorites")));
+    const favorite = { id: id, name: name, image: image };
+    dispatch(removeCharacter(favorite));
   };
 
   const location = useLocation();
