@@ -9,3 +9,7 @@ Uma vez com o personagem favoritado, o usuário poderá remover o mesmo da lista
 Exemplo: Se eu clico em um personagem da listagem de  pokémons, ele deverá ser adicionado na lista de favoritos de pokémons ou se eu clicar em um personagem do Rick and Morty, deverá ser adicionado em outra lista de favoritos dos personagens do Rick and Morty.
 
 obs: Vamos trabalhar apenas com os 150 primeiros Pokemons!
+
+# Deploy
+
+https://colecoes-8clm9s4m9.vercel.app/
